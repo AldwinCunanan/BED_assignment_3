@@ -12,6 +12,16 @@ app.use(morgan("combined"));
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
+
+// Health check
+app.get("/health", (_req, res): void => {
+    res.json({
+        status: "OK",
+        uptime: process.uptime(),
+        timeStamp: new Date().toISOString(),
+        version: "1.0.0",
+    });
+});
  
 // export app and server for testing
 export default app;
