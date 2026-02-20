@@ -25,7 +25,7 @@
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/joi": "^17.2.2",
-    "@types/node": "^25.2.3",
+    "@types/node": "^25.3.0",
     "@types/supertest": "^6.0.3",
     "jest": "^30.2.0",
     "supertest": "^7.2.2",
@@ -39,5 +39,8 @@
     "firebase-admin": "^13.6.1",
     "joi": "^18.0.2",
     "morgan": "^1.10.1"
+  },
+  "directories": {
+    "test": "test"
   }
 }
