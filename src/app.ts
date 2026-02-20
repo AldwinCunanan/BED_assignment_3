@@ -1,6 +1,7 @@
 
 import express, { Express } from "express";
 import morgan from "morgan";
+import router from "../src/api/v1/routes/eventRoutes"
  
 // Initialize Express application
 const app: Express = express();
@@ -13,8 +14,10 @@ app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
 
+app.use("/api/v1/posts", router);
+
 // Health check
-app.get("/health", (_req, res): void => {
+app.get("/api/v1/health", (_req, res): void => {
     res.json({
         status: "OK",
         uptime: process.uptime(),

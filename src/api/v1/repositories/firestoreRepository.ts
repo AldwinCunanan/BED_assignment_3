@@ -1,6 +1,7 @@
 import { db } from "../../../../config/firebaseConfig";
 import { FirestoreDataTypes } from "../types/firestore";
-import { QuerySnapshot } from "firebase-admin/firestore";
+import { QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
+
 
 interface FieldValuePair {
     fieldName: string;
@@ -34,16 +35,25 @@ export const createDocument = async <T>(
     }
 };
 
-export const getDocuments = async (
+// to get all posts
+export const getAllDocuments = async <T>(
     collectionName: string
-): Promise<QuerySnapshot> => {
+): Promise<(T & { id: string })[]> => {
     try {
-        return await db.collection(collectionName).get();
+        const snapshot = await db.collection(collectionName).get();
+
+        return snapshot.docs.map(
+            (doc: QueryDocumentSnapshot<DocumentData>) => ({
+                id: doc.id,
+                ...(doc.data() as T),
+            })
+        );
     } catch (error: unknown) {
         const errorMessage =
             error instanceof Error ? error.message : "Unknown error";
+
         throw new Error(
-            `Failed to fetch documents from ${collectionName}: ${errorMessage}`
+            `Failed to retrieve all documents in ${collectionName}: ${errorMessage}`
         );
     }
 };

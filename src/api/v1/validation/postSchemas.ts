@@ -24,7 +24,7 @@ export const postSchemas = {
                 "any.only": "Status must be one of [active, cancelled, completed]"
             }),
             category: Joi.string().valid("conference", "workshop", "meetup", "seminar", "general").default("general").messages({
-                "any.only": "Category must be one of [conference, workshop, meetup, seminar, general",
+                "any.only": "Category must be one of [conference, workshop, meetup, seminar, general]",
             }),
             registrationCount: Joi.number().integer().min(0).max(Joi.ref("capacity")).default(0).messages({
                 "number.base": "Registration count must be a number",
