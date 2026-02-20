@@ -1,5 +1,5 @@
 import { initializeApp, cert, ServiceAccount } from "firebase-admin/app";
-import { getFirestore, Firestore } from "firebase-admin/firestore";
+import { getFirestore, Firestore} from "firebase-admin/firestore";
 
 import * as serviceAccount from "../m3-assignment-b2341-firebase-adminsdk-fbsvc-6bef52f6de.json";
 
