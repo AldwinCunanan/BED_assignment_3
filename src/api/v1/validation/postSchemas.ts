@@ -6,7 +6,7 @@ export const postSchemas = {
     create: {
         body: Joi.object({
             name: Joi.string().min(3).required().messages({
-                "any.required": "Event name is required",
+                //"any.required": "name is required",
                 "string.min": "Event name must be at least 3 characters long",
             }),
             date: Joi.date().iso().greater("now").required().messages({

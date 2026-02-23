@@ -5,6 +5,8 @@ import router from "../src/api/v1/routes/eventRoutes"
  
 // Initialize Express application
 const app: Express = express();
+
+app.use(express.json());
  
 // Initialize morgan
 app.use(morgan("combined"));
