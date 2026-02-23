@@ -38,6 +38,7 @@ export const postSchemas = {
             updatedAt: Joi.forbidden(),
         }),
     },
+    //get by id
     getById: {
         params: Joi.object({
             id: Joi.string().required().messages({
@@ -46,4 +47,23 @@ export const postSchemas = {
             }),
         }),
     },
+    // update post
+    update: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Post ID is required",
+                "string.empty": "Post ID cannot be empty",
+            }),
+        }),
+        body: Joi.object({
+            name: Joi.string().optional(),
+            date: Joi.date().optional(),
+            category: Joi.string().optional(),
+            capacity: Joi.number().optional(),
+            registrationCount: Joi.number().optional(),
+            status: Joi.string().valid("active", "cancelled", "completed").optional(),}).min(1).messages({
+                "object.min": "At least one field must be provided to update",
+         }),
+    },
+
 }

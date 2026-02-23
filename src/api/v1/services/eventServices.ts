@@ -94,3 +94,57 @@ export const getPostById = async (id: string): Promise<Post> => {
         );
     }
 };
+
+// 
+export const updatePost = async (
+    id: string,
+    postData: Partial<{
+        name: string;
+        date: string | Date;
+        category: string;
+        capacity: number;
+        registrationCount: number;
+        status: "active" | "cancelled" | "completed";
+        createdAt: string | Date;
+        updatedAt: string | Date;
+    }>
+): Promise<Post> => {
+    try {
+        const updatedPost: Partial<Post> = {};
+
+        // Only set fields that exist in postData
+        if (postData.name !== undefined) updatedPost.name = postData.name;
+        if (postData.date !== undefined)
+            updatedPost.date = postData.date instanceof Date ? postData.date : new Date(postData.date);
+        if (postData.category !== undefined) updatedPost.category = postData.category;
+        if (postData.capacity !== undefined) updatedPost.capacity = postData.capacity;
+        if (postData.registrationCount !== undefined) updatedPost.registrationCount = postData.registrationCount;
+        if (postData.status !== undefined) updatedPost.status = postData.status;
+
+        if (Object.keys(updatedPost).length === 0) {
+            throw new Error("No fields provided to update");
+        }
+
+        updatedPost.updatedAt = new Date();
+
+        // Update the document in Firestore
+        await firestoreRepository.updateDocument<Post>(COLLECTION, id, updatedPost);
+
+        // Retrieve the updated post
+        const updatedPostData = await firestoreRepository.getDocById<Post>(COLLECTION, id);
+
+        if (!updatedPostData) {
+            throw new Error("Updated post couldn't be found");
+        }
+        const formattedPost: Post = {
+          ...updatedPostData,
+          date: (updatedPostData.date as any)?.toDate?.()?.toISOString() ?? updatedPostData.date,
+          createdAt: (updatedPostData.createdAt as any)?.toDate?.()?.toISOString() ?? updatedPostData.createdAt,
+          updatedAt: (updatedPostData.updatedAt as any)?.toDate?.()?.toISOString() ?? updatedPostData.updatedAt,
+        };
+        return formattedPost;
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Unknown error";
+        throw new Error(`Failed to update post ${id}: ${errorMessage}`);
+    }
+};

@@ -7,6 +7,7 @@ import router from "../src/api/v1/routes/eventRoutes"
 const app: Express = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
  
 // Initialize morgan
 app.use(morgan("combined"));
@@ -28,6 +29,10 @@ app.get("/api/v1/health", (_req, res): void => {
     });
 });
  
+app.post("/test", (req, res) => {
+  console.log("TEST BODY:", req.body);
+  res.json(req.body);
+});
 // export app and server for testing
 export default app;
  
