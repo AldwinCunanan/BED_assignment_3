@@ -74,3 +74,23 @@ export const getAllPosts = async (): Promise<(Post & { id: string })[]> => {
         );
     }
 };
+
+// Get event by id
+export const getPostById = async (id: string): Promise<Post> => {
+    try {
+        const post = await firestoreRepository.getDocById<Post>(COLLECTION, id);
+        
+        if(!post){
+            throw new Error("Event not found");
+        }
+
+        return post;
+       
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Unknown error";
+        throw new Error(
+            `Failed to retrive the post: ${errorMessage}`
+        );
+    }
+};

@@ -22,7 +22,7 @@ export const createPostHandler = async (
 
         const newPost = await eventService.createPost(postData);
 
-        res.status(HTTP_STATUS.CREATED).json(successResponse(undefined,newPost, "Post created successfully"));
+        res.status(HTTP_STATUS.CREATED).json(successResponse( "Post created successfully",undefined,newPost, "Event Created"));
     } catch (error: unknown) {
         next(error);
     }
@@ -38,7 +38,23 @@ export const getAllPostsHandler = async (
         const posts = await eventService.getAllPosts();
         const totalEvents = posts.length;
 
-        res.status(HTTP_STATUS.OK).json(successResponse(totalEvents,posts, "Posts retrieved successfully"));
+        res.status(HTTP_STATUS.OK).json(successResponse( "Posts retrieved successfully", totalEvents,posts, "Events Retrieved"));
+    } catch (error: unknown) {
+        next(error);
+    }
+};
+
+// handles request to get a single post by Id
+export const getPostByIdHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const post = await eventService.getPostById(id as string);
+
+        res.status(HTTP_STATUS.OK).json(successResponse( "Post retrieved successfully",undefined,post, "success"));
     } catch (error: unknown) {
         next(error);
     }

@@ -8,11 +8,12 @@ export interface ApiResponse <T>{
 }
 
 export const successResponse = <T>(
+    status: string ="success",
     count?: number,
     data?: T,
-    message?: string
+    message?: string,
 ): ApiResponse<T> => ({
-    status: "Event created",
+    status,
     count,
     data,
     message,

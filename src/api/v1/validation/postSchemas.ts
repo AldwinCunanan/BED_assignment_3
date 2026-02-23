@@ -15,8 +15,8 @@ export const postSchemas = {
                 //"date.greater": "Event date must be in the future",
             }),
             capacity: Joi.number().integer().min(5).required().messages({
-                "any.required": "Capacity is required",
-                "number.base": "Capacity must be a number",
+                //"any.required": "Capacity is required",
+                //"number.base": "Capacity must be a number",
                 //"number.integer": "Capacity must be an integer",
                 //"number.min": "Capacity must be at least 5",
             }),
@@ -32,11 +32,18 @@ export const postSchemas = {
                 //"number.max": "Registration must be less than or equal to ref:capacity",
             }),
 
-        
             // System fields. Block user from creating
             id: Joi.forbidden(),
             createdAt: Joi.forbidden(),
             updatedAt: Joi.forbidden(),
+        }),
+    },
+    getById: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Post ID is required",
+                "string.empty": "Post ID cannot be empty",
+            }),
         }),
     },
 }
