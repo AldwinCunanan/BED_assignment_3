@@ -65,5 +65,13 @@ export const postSchemas = {
                 "object.min": "At least one field must be provided to update",
          }),
     },
+    delete: {
+        params: Joi.object({
+            id: Joi.string().required().messages({
+                "any.required": "Post ID is required",
+                "string.empty": "Post ID cannot be empty",
+                }),
+        }),
+    },
 
 }

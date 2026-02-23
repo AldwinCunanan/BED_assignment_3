@@ -22,7 +22,7 @@ export const createPostHandler = async (
 
         const newPost = await eventService.createPost(postData);
 
-        res.status(HTTP_STATUS.CREATED).json(successResponse( "Post created successfully",undefined,newPost, "Event Created"));
+        res.status(HTTP_STATUS.CREATED).json(successResponse( "Event created",undefined,newPost, "success"));
     } catch (error: unknown) {
         next(error);
     }
@@ -38,7 +38,7 @@ export const getAllPostsHandler = async (
         const posts = await eventService.getAllPosts();
         const totalEvents = posts.length;
 
-        res.status(HTTP_STATUS.OK).json(successResponse( "Posts retrieved successfully", totalEvents,posts, "Events Retrieved"));
+        res.status(HTTP_STATUS.OK).json(successResponse( "Events retrieved", totalEvents,posts, "success"));
     } catch (error: unknown) {
         next(error);
     }
@@ -86,6 +86,26 @@ export const updatePostHandler = async (
         res.status(HTTP_STATUS.OK).json(
             successResponse("Event updated successfully", undefined, updatedPost)
         );
+    } catch (error: unknown) {
+        next(error);
+    }
+};
+
+// handles request to delete
+export const deletePostHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const {id} = req.params;
+        if (!id) {
+            res.status(400).json({ message: "Post ID is required to delete a post" });
+            return;
+        }
+        await eventService.deletePost(id as string);
+
+        res.status(HTTP_STATUS.OK).json(successResponse("Post deleted"));
     } catch (error: unknown) {
         next(error);
     }

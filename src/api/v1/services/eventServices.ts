@@ -148,3 +148,17 @@ export const updatePost = async (
         throw new Error(`Failed to update post ${id}: ${errorMessage}`);
     }
 };
+
+// delete
+export const deletePost = async (id: string): Promise<void> => {
+    try {
+        await firestoreRepository.deleteDocument(COLLECTION, id);
+       
+    } catch (error: unknown) {
+        const errorMessage =
+            error instanceof Error ? error.message : "Unknown error";
+        throw new Error(
+            `Failed to delete the post: ${errorMessage}`
+        );
+    }
+};
