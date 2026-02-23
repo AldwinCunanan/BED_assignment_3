@@ -22,7 +22,7 @@ export const createPostHandler = async (
 
         const newPost = await eventService.createPost(postData);
 
-        res.status(HTTP_STATUS.CREATED).json(successResponse({newPost}, "Post created successfully"));
+        res.status(HTTP_STATUS.CREATED).json(successResponse(undefined,newPost, "Post created successfully"));
     } catch (error: unknown) {
         next(error);
     }
@@ -36,8 +36,9 @@ export const getAllPostsHandler = async (
 ): Promise<void> => {
     try {
         const posts = await eventService.getAllPosts();
+        const totalEvents = posts.length;
 
-        res.status(HTTP_STATUS.OK).json(successResponse({posts}, "Posts retrieved successfully"));
+        res.status(HTTP_STATUS.OK).json(successResponse(totalEvents,posts, "Posts retrieved successfully"));
     } catch (error: unknown) {
         next(error);
     }

@@ -1,6 +1,6 @@
 import { db } from "../../../../config/firebaseConfig";
 import { FirestoreDataTypes } from "../types/firestore";
-import { QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
+import { Timestamp, QueryDocumentSnapshot, DocumentData } from "firebase-admin/firestore";
 
 
 interface FieldValuePair {
@@ -41,13 +41,22 @@ export const getAllDocuments = async <T>(
 ): Promise<(T & { id: string })[]> => {
     try {
         const snapshot = await db.collection(collectionName).get();
+        return snapshot.docs.map((doc: QueryDocumentSnapshot<DocumentData>) => {
+            const data = doc.data() as any;
+            const formattedData = {
+                ...data,
+                ...(data.date instanceof Timestamp ? { date: data.date.toDate().toISOString() } : {}),
+                ...(data.createdAt instanceof Timestamp ? { createdAt: data.createdAt.toDate().toISOString() } : {}),
+                ...(data.updatedAt instanceof Timestamp ? { updatedAt: data.updatedAt.toDate().toISOString() } : {}),
 
-        return snapshot.docs.map(
-            (doc: QueryDocumentSnapshot<DocumentData>) => ({
+            };
+
+            return {
                 id: doc.id,
-                ...(doc.data() as T),
-            })
-        );
+                ...formattedData,
+            };
+        });
+        
     } catch (error: unknown) {
         const errorMessage =
             error instanceof Error ? error.message : "Unknown error";

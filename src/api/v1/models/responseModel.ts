@@ -1,5 +1,6 @@
 export interface ApiResponse <T>{
     status: string,
+    count?:number,
     data?: T,
     message?: string,
     error?: string,
@@ -7,10 +8,12 @@ export interface ApiResponse <T>{
 }
 
 export const successResponse = <T>(
+    count?: number,
     data?: T,
     message?: string
 ): ApiResponse<T> => ({
     status: "Event created",
+    count,
     data,
     message,
 });

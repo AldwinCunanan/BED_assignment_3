@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
 
-app.use("/api/v1/posts", router);
+app.use("/api/v1", router);
 
 // Health check
 app.get("/api/v1/health", (_req, res): void => {
