@@ -77,6 +77,23 @@ router.post("/event", validateRequest(postSchemas.create), eventController.creat
 router.get("/event", eventController.getAllPostsHandler);
 
 
+// Example 2: Get all events
+/**
+ * @openapi
+ * /event:
+ *   get:
+ *     summary: Retrieve all events
+ *     tags: [Events]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved events
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EventListResponse'
+ */
+router.get("/event", eventController.getAllPostsHandler);
+
 // Example 3: Get event by ID
 /**
  * @openapi
@@ -103,8 +120,8 @@ router.get("/event", eventController.getAllPostsHandler);
  *       '404':
  *         description: Event not found
  */
-router.get("/event", eventController.getAllPostsHandler);
 router.get("/event/:id", validateRequest(postSchemas.getById), eventController.getPostByIdHandler);
+
 router.put("/event/:id", validateRequest(postSchemas.update), eventController.updatePostHandler);
 router.delete("/event/:id", validateRequest(postSchemas.delete), eventController.deletePostHandler);
 
