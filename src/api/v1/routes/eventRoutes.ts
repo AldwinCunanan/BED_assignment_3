@@ -172,7 +172,32 @@ router.get("/event/:id", validateRequest(postSchemas.getById), eventController.g
  */
 router.put("/event/:id", validateRequest(postSchemas.update), eventController.updatePostHandler);
 
-
+// Example 5: Delete an event
+/**
+ * @openapi
+ * /event/{id}:
+ *   delete:
+ *     summary: Delete a specific event
+ *     tags: [Events]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Event ID
+ *     responses:
+ *       '200':
+ *         description: Event deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/BasicResponse'
+ *       '400':
+ *         description: Missing or invalid ID
+ *       '404':
+ *         description: Event not found
+ */
 router.delete("/event/:id", validateRequest(postSchemas.delete), eventController.deletePostHandler);
 
 export default router;
