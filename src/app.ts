@@ -1,5 +1,9 @@
-
 import express, { Express } from "express";
+import dotenv from "dotenv";
+
+// load environment variables
+dotenv.config();
+
 import morgan from "morgan";
 import router from "../src/api/v1/routes/eventRoutes"
 import setupSwagger from "../config/swagger"
