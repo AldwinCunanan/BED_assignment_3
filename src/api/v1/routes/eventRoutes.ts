@@ -53,7 +53,7 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/EventResponse'
+ *               $ref: '#/components/schemas/Event'
  *       '400':
  *         description: Invalid input data
  */
@@ -72,25 +72,7 @@ router.post("/event", validateRequest(postSchemas.create), eventController.creat
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/EventListResponse'
- */
-router.get("/event", eventController.getAllPostsHandler);
-
-
-// Example 2: Get all events
-/**
- * @openapi
- * /event:
- *   get:
- *     summary: Retrieve all events
- *     tags: [Events]
- *     responses:
- *       '200':
- *         description: Successfully retrieved events
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/EventListResponse'
+ *               $ref: '#/components/schemas/Event'
  */
 router.get("/event", eventController.getAllPostsHandler);
 
@@ -114,7 +96,7 @@ router.get("/event", eventController.getAllPostsHandler);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/EventResponse'
+ *               $ref: '#/components/schemas/Event'
  *       '400':
  *         description: Invalid ID
  *       '404':
@@ -164,7 +146,7 @@ router.get("/event/:id", validateRequest(postSchemas.getById), eventController.g
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/EventResponse'
+ *               $ref: '#/components/schemas/Event'
  *       '400':
  *         description: Validation error
  *       '404':
@@ -192,7 +174,7 @@ router.put("/event/:id", validateRequest(postSchemas.update), eventController.up
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/BasicResponse'
+ *               $ref: '#/components/schemas/Event'
  *       '400':
  *         description: Missing or invalid ID
  *       '404':

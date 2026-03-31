@@ -3,12 +3,12 @@
   "info": {
     "title": "Back End Assignment API Documentation",
     "version": "1.0.0",
-    "description": "This is the API documentation for the Assignment 3 Event Manager"
+    "description": "This is the API documentation for the event Management System."
   },
   "servers": [
     {
       "url": "http://localhost:3000/api/v1",
-      "description": "Local server"
+      "description": "Development server"
     }
   ],
   "components": {
@@ -17,6 +17,57 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "required": [
+          "name",
+          "date",
+          "capacity"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Tech Conference"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-06-15T10:00:00Z"
+          },
+          "capacity": {
+            "type": "integer",
+            "minimum": 5,
+            "example": 100
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "cancelled",
+              "completed"
+            ],
+            "default": "active"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "conference",
+              "workshop",
+              "meetup",
+              "seminar",
+              "general"
+            ],
+            "default": "general"
+          },
+          "registrationCount": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 0
+          }
+        }
       }
     }
   },
@@ -95,7 +146,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventResponse"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -116,7 +167,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventListResponse"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -147,7 +198,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventResponse"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -219,7 +270,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EventResponse"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }
@@ -254,7 +305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BasicResponse"
+                  "$ref": "#/components/schemas/Event"
                 }
               }
             }

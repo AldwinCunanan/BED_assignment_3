@@ -7,12 +7,12 @@ const swaggerOptions: swaggerJsdoc.Options = {
             title: "Back End Assignment API Documentation",
             version: "1.0.0",
             description:
-                "This is the API documentation for the Assignment 3 Event Manager",
+                "This is the API documentation for the event Management System.",
         },
         servers: [
             {
                 url: "http://localhost:3000/api/v1",
-                description: "Local server",
+                description: "Development server",
             },
         ],
         components: {
