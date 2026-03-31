@@ -122,7 +122,57 @@ router.get("/event", eventController.getAllPostsHandler);
  */
 router.get("/event/:id", validateRequest(postSchemas.getById), eventController.getPostByIdHandler);
 
+// Example 4: Update an event
+/**
+ * @openapi
+ * /event/{id}:
+ *   put:
+ *     summary: Update a specific event
+ *     tags: [Events]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Event ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             minProperties: 1
+ *             properties:
+ *               name:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *               capacity:
+ *                 type: integer
+ *               category:
+ *                 type: string
+ *               registrationCount:
+ *                 type: integer
+ *               status:
+ *                 type: string
+ *                 enum: [active, cancelled, completed]
+ *     responses:
+ *       '200':
+ *         description: Event updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EventResponse'
+ *       '400':
+ *         description: Validation error
+ *       '404':
+ *         description: Event not found
+ */
 router.put("/event/:id", validateRequest(postSchemas.update), eventController.updatePostHandler);
+
+
 router.delete("/event/:id", validateRequest(postSchemas.delete), eventController.deletePostHandler);
 
 export default router;
