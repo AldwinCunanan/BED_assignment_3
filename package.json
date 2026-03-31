@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/AldwinCunanan/BED_assignment_3#readme",
   "devDependencies": {
-    "@redocly/cli": "^2.25.2",
+    "@redocly/cli": "^2.25.3",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
