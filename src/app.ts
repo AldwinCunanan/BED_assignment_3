@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 //import helmet from "helmet";
+import cors from "cors";
 import dotenv from "dotenv";
 
 // load environment variables
@@ -9,9 +10,12 @@ import morgan from "morgan";
 import router from "../src/api/v1/routes/eventRoutes"
 import setupSwagger from "../config/swagger"
 import {getHelmetConfig} from "../config/helmetConfig"
+import {getCorsOptions} from "../config/corsConfig"
  
 // Initialize Express application
 const app: Express = express();
+
+app.use(cors(getCorsOptions));
 app.use(getHelmetConfig());
 app.use(express.json());
  
@@ -22,9 +26,7 @@ app.use(morgan("combined"));
 app.get("/", (req, res) => {
     res.send("Hello, world!");
 });
-
 app.use("/api/v1", router);
-
 // Health check
 app.get("/api/v1/health", (_req, res): void => {
     res.json({
