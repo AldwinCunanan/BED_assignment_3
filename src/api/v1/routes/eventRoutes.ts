@@ -5,7 +5,104 @@ import { postSchemas } from "../validation/postSchemas";
 
 const router = express.Router();
 
+// Example 1: Create a new event
+/**
+ * @openapi
+ * /event:
+ *   post:
+ *     summary: Create a new event
+ *     tags: [Events]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - date
+ *               - capacity
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 minLength: 3
+ *                 example: "Tech Conference"
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *                 example: "2026-06-15T10:00:00Z"
+ *               capacity:
+ *                 type: integer
+ *                 minimum: 5
+ *                 example: 100
+ *               status:
+ *                 type: string
+ *                 enum: [active, cancelled, completed]
+ *                 default: active
+ *               category:
+ *                 type: string
+ *                 enum: [conference, workshop, meetup, seminar, general]
+ *                 default: general
+ *               registrationCount:
+ *                 type: integer
+ *                 minimum: 0
+ *                 example: 0
+ *     responses:
+ *       '201':
+ *         description: Event created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EventResponse'
+ *       '400':
+ *         description: Invalid input data
+ */
 router.post("/event", validateRequest(postSchemas.create), eventController.createPostHandler);
+
+// Example 2: Get all events
+/**
+ * @openapi
+ * /event:
+ *   get:
+ *     summary: Retrieve all events
+ *     tags: [Events]
+ *     responses:
+ *       '200':
+ *         description: Successfully retrieved events
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EventListResponse'
+ */
+router.get("/event", eventController.getAllPostsHandler);
+
+
+// Example 3: Get event by ID
+/**
+ * @openapi
+ * /event/{id}:
+ *   get:
+ *     summary: Retrieve a specific event by ID
+ *     tags: [Events]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Event ID
+ *     responses:
+ *       '200':
+ *         description: Event retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/EventResponse'
+ *       '400':
+ *         description: Invalid ID
+ *       '404':
+ *         description: Event not found
+ */
 router.get("/event", eventController.getAllPostsHandler);
 router.get("/event/:id", validateRequest(postSchemas.getById), eventController.getPostByIdHandler);
 router.put("/event/:id", validateRequest(postSchemas.update), eventController.updatePostHandler);
