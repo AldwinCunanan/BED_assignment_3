@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+//import helmet from "helmet";
 import dotenv from "dotenv";
 
 // load environment variables
@@ -7,10 +8,10 @@ dotenv.config();
 import morgan from "morgan";
 import router from "../src/api/v1/routes/eventRoutes"
 import setupSwagger from "../config/swagger"
+import {apihelmetConfig} from "../config/helmetConfig"
  
 // Initialize Express application
 const app: Express = express();
-
 app.use(express.json());
  
 // Initialize morgan
