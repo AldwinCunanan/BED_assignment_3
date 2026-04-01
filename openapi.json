@@ -28,22 +28,31 @@
           "capacity"
         ],
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the event",
+            "example": "event_abc123"
+          },
           "name": {
             "type": "string",
+            "description": "The name of the event",
             "example": "Tech Conference"
           },
           "date": {
             "type": "string",
             "format": "date-time",
+            "description": "The date and time of the event",
             "example": "2026-06-15T10:00:00Z"
           },
           "capacity": {
             "type": "integer",
+            "description": "Maximum number of attendees",
             "minimum": 5,
             "example": 100
           },
           "status": {
             "type": "string",
+            "description": "Current status of the event",
             "enum": [
               "active",
               "cancelled",
@@ -53,6 +62,7 @@
           },
           "category": {
             "type": "string",
+            "description": "Type of event",
             "enum": [
               "conference",
               "workshop",
@@ -64,8 +74,21 @@
           },
           "registrationCount": {
             "type": "integer",
+            "description": "Number of people registered for the event",
             "minimum": 0,
             "example": 0
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the event was created",
+            "example": "2026-03-31T12:00:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time when the event was last updated",
+            "example": "2026-03-31T12:00:00Z"
           }
         }
       }
