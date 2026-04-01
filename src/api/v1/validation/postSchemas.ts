@@ -1,5 +1,3 @@
-import Joi, { ObjectSchema } from "joi";
-
 /**
  * @openapi
  * components:
@@ -55,6 +53,8 @@ import Joi, { ObjectSchema } from "joi";
  *           description: The date and time when the event was last updated
  *           example: "2026-03-31T12:00:00Z"
  */
+import Joi, { ObjectSchema } from "joi";
+
 
 // Post operation schemas organized by request part
 export const postSchemas = {
