@@ -10,9 +10,9 @@ export const getHelmetConfig = () => {
             hsts: false,
             hidePoweredBy: true,
             noSniff: true,
-            referrerPolicy: { policy: "no-referrer" }, // literal type
-            frameguard: { action: "sameorigin" },       // literal type
-            crossOriginResourcePolicy: { policy: "same-origin" }, // literal type
+            referrerPolicy: { policy: "no-referrer" }, 
+            frameguard: { action: "sameorigin" },       
+            crossOriginResourcePolicy: { policy: "same-origin" }, 
             ieNoOpen: true,
             dnsPrefetchControl: { allow: false },
         });
@@ -27,9 +27,9 @@ export const getHelmetConfig = () => {
         },
         hidePoweredBy: true,
         noSniff: true,
-        referrerPolicy: { policy: "no-referrer" },          // must match allowed literal
-        frameguard: { action: "deny" },                     // must match allowed literal
-        crossOriginResourcePolicy: { policy: "same-origin" }, // must match allowed literal
+        referrerPolicy: { policy: "no-referrer" },          
+        frameguard: { action: "deny" },                     
+        crossOriginResourcePolicy: { policy: "same-origin" },
         ieNoOpen: true,
         dnsPrefetchControl: { allow: false },
     });
