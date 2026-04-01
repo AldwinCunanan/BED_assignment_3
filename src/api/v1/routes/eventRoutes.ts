@@ -72,7 +72,9 @@ router.post("/event", validateRequest(postSchemas.create), eventController.creat
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Event'
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Event'
  */
 router.get("/event", eventController.getAllPostsHandler);
 
