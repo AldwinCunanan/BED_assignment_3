@@ -1,42 +1,42 @@
-import express, { Express } from "express";
-//import helmet from "helmet";
-import cors from "cors";
 import dotenv from "dotenv";
+dotenv.config(); // load environment variables first
 
-// load environment variables
-dotenv.config();
-
+import express, { Express } from "express";
+import cors from "cors";
 import morgan from "morgan";
-import router from "../src/api/v1/routes/eventRoutes"
-import setupSwagger from "../config/swagger"
-import {getHelmetConfig} from "../config/helmetConfig"
-import {getCorsOptions} from "../config/corsConfig"
- 
-// Initialize Express application
+
+// Configs
+import setupSwagger from "../config/swagger";
+import { getHelmetConfig } from "../config/helmetConfig";
+import { getCorsOptions } from "../config/corsConfig";
+
+// Routes
+import router from "../src/api/v1/routes/eventRoutes";
+
+// Initialize Express app
 const app: Express = express();
 
-app.use(cors(getCorsOptions));
+// Middleware
+app.use(morgan("combined")); // log first
+app.use(cors(getCorsOptions()));
 app.use(getHelmetConfig());
 app.use(express.json());
- 
-// Initialize morgan
-app.use(morgan("combined"));
- 
-// Define a route
-app.get("/", (req, res) => {
-    res.send("Hello, world!");
-});
-app.use("/api/v1", router);
+
 // Health check
-app.get("/api/v1/health", (_req, res): void => {
-    res.json({
-        status: "OK",
-        uptime: process.uptime(),
-        timeStamp: new Date().toISOString(),
-        version: "1.0.0",
-    });
+app.get("/api/v1/health", (_req, res) => {
+  res.json({
+    status: "OK",
+    uptime: process.uptime(),
+    timeStamp: new Date().toISOString(),
+    version: "1.0.0",
+  });
 });
- 
-// setup swagger 
+
+// Routes
+app.get("/", (_req, res) => res.send("Hello, world!"));
+app.use("/api/v1", router);
+
+// Swagger
 setupSwagger(app);
+
 export default app;
